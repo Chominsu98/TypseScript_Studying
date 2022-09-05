@@ -1,0 +1,284 @@
+<추가한 개발 환경>
+material Icon:아이콘 이쁘게
+night owl:테마
+eslint:문법 교정
+tslint:문접교정
+liver server:실시간으로 반영
+intelicode:인텔리센스 오류떠서 추가해줌
+
+<쓸만한 크롬개발자도구꿀팁>
+1.ctrl shft p로 검색탭열고
+2.screenshot(노드별 캡처시 좋음)
+3.live expression(콘솔창에서 눈알 누르면 엔터 매번 안치더라두 결과확인)
+4.snippet(코드 긴줄로 한꺼번에 넣어보고싶을때)
+5.adblock(광고없는화면 보기 가능)-ads까지 검색
+
+<외부자바스크립트,jQuery파일들>
+이런 것들은 대체로 바디 태그 끝나기전에 넣어주는게 좋다
+왜냐하면 브라우저가 위에서 부터 불러오는데 외부 cdn같을 거를 가져올려고하면 브라우저가 가져오는데 해석을 멈추기에 ui를 보여주는데까지
+오래 걸릴수 있다..
+
+<자바스크립트와 jQuery>
+사실 둘은 다른게 아니라 jQuery는 자바스크립트를 짧게 써줄수있는
+라이브러리이다 
+$()이게 기본바탕임 Jquery는 
+.html()
+.text()
+.css()
+.attr()
+
+<breadcrumb>
+현재페이지의 부모페이지에 대한 링크목록으로 계층적 순서로 구성된다.
+이는 사용자가 웹사이트나 웹어플리케이션에서 자신의 위치를 찾을 수 있도록 도와줌
+브레드크럼은 종종 페이지의 주요 콘텐츠 앞에 가로로 배치된다.
+-->헨젤과 그레텔에서의 빵부스러기로 내가 어디로왔는지를 알려줬던것이 유래이다
+
+페이지단계가 3단계depth이면 사용자경험 측면에서 넣어주면 좋다
+Home>Blog>Single Post 이런방식
+
+
+==================================
+eslint나 tslint 플러그인을 설치를안해주면 코드상에 빨간줄을 쳐주는게 없음
+
+JSDoc을 사용하여 js코드 내부에서 마치 타입스크립트처럼
+미리 api나 이런데에서 불러오는 자료형들에 대한 문서화를 해놓으면
+자동완성에 훨씬 편해짐
+ex)
+/**
+*@typedef {Object} User
+*@property {string} city
+*@property {string} street
+/**
+*@returns {Promise<User>}
+*/
+function fetchuser(){
+	return axios.get(url)
+}
+
+타입스크립트를 사용하는 이유는 
+1)에러방지
+2)코드의 생산성 증가 
+
+<타입스크립트를 자바스크립트로의 전환>
+1)npm i typescript -g
+설치하고
+2)tsc index.ts이런식으로 원하는 파일을 tsc(컴파일러로)변환시켜주자
+
+tsconfig.json 파일을 만들고 매번 컴파일 시 필요한 옵션들을
+json형식으로 적어놓을 수 있다
+{
+	allowJs:true
+	이 프로젝트에 자바스크립트를 포함시키겠다 여부
+	checkJs:true
+	//@ts-check와 같은 기능들을 자바스크립트에 녹여내겠다
+	noimplicitAny:true
+	모든 타입에서 최소한 any라는 것은 넣어주자 이런 뜻
+}
+
+이 말고도 추가적인 컴파일옵션들은 타입스크립트 공식홈페이지 tools
+들어가서 체크해보자
+
+<타입스크립트>
+옵셔널인자_함수
+
+함수에서 
+function sum(a:number,b?:number){
+	return a+b
+}
+
+sum(3)
+원래 이렇게만 하면 인자를 하나만 주어서 일반적인 경우 에러가 난다
+타입스크립트에서는
+
+자바스크립트에서는 신경별로 안써줄듯,,,
+
+걍무시잼
+
+하지만 타입스크립트에서 인자에 ?를 붙이면 선택적으로 받을 수있는 것
+
+<타입과 인터페이스>
+type todo{
+	id: number;
+	title: string;
+	done: boolean;
+}
+타입은 쓸려는애들에 대하여 별칭을 달아 가져다 쓸수 있는 형태
+
+똑같은 형태로 
+interface를 더많이 씀
+interface todo{
+	id: number;
+	title: string;
+	done: boolean;
+}
+
+let todoItems: todo[];
+//이런식으로 todo형태의 리스트임을 명시함
+
+<자바스크립트의 프로토입타입>
+var user={name:'capt',age:100}
+
+var admin={name:"capt",age:100,role:"user"}
+
+이와 같이 admin이라는 객체가 user의 속성을 공통적으로 갖는것을
+볼 수 있다.
+
+따라서 admin은 프로토타입을 user로 설정해주면서 상속받을 수 있다
+
+admin.__proto__=user;
+이와같이하면 admin은 user의 속성을 그대로 부여받는다
+
+따라서 admin.name
+admin.age
+admin.role에 대하여 다 접근이 가능하게 된다
+
+<자바스크립트 프로토타입의 활용사례>
+우리가 그동안에 예를 들어 사용하던 자체적으로 지원하는 메소드들이 있다
+
+var obj={a:10};
+
+Object.keys(obj)
+키값에 대하여 출력
+
+obj.hasOwnProperty('a');
+이와 같이 오브젝트와 관련된 메소드들은 
+왜 쓸수 있냐면 우리가 이와 같이 객체를 선언하면 
+각 객체에는 __proto__이런식으로 Object로 상위 클래스를 상속받기 때문이다
+
+또한 arr=[]
+arr.push()이런 것 또한
+자세히 들여다보면 __proto__로 Array를 상속받고 있기 때문이다
+
+이런것들을 Bult-in Javascript API 또는 JavascriptNative Api라고 부른다
+
+<Promise객체>
+자바스크립트 비동기 처리에 사용되는 객체를 의미함
+
+비동기 처리라 함은 실제로 동기적으로 모든 서버로부터의 결과까지 오는 것을 다 기다리는 것이 아니라 다음코드를 먼저 수행시켜버리는 특징을 의미함 따라서 이러한 점을 해결하기 위해 아래와 같은 방법들이 존재
+1)콜백형태로 해결 가능
+2)promise객체
+3)async await
+
+프로미스의 상태는 총 3가지로 분류된다
+Pending(대기):비동기 처리 로직이 아직 완료되지 않은 상태
+Fulfilled(이행):비동기 처리가 완료되어 프로미스가 결과 값을 반환해준 상태
+Rejected(실패):비동기처리에 실패 오류가 발생한 상태
+
+function getData(){
+	return new Promise(function(resolve,reject){
+		var data=10;
+		resolve(data);
+})
+
+}
+// 이와같이 getData() 비동기처리 함수를 구현
+//resolve는 완료가 됨을 의미한다
+
+//호출하기
+getData().then(function(resolvedData){
+	console.log(resolvedData);//여기서 data값이 찍힐 것이다
+})
+
+resolve()가 호출되면 프로미스가 대기 상태에서 이행 상태로 넘어가기 때문에 첫 번째 .then()의 로직으로 넘어갑니다. 
+
+
+<타입스크립트에서의 Promise>
+프로미스객체는 애초에 제네릭으로 구현되어 있어서 
+반환을 할 때 만약 promise객체로 할 시에 
+반환 타입을 resolve 할 때 넘겨주는 데이터타입이 최종 반환타입으로
+명시해주면된다
+
+<타입스크립트 language server가 돌아가고 있어서
+우리가 타입추론이나 이런것이 가능한거임>
+
+
+
+<자바스크립트에서 fetch와 axios ajax차이>
+Asynchronous JavaScript And XML의 약자이며,
+자바스크립트를 이용해 클라이언트와 서버 간에 데이터를 주고받는 비동기 HTTP 통신입니다.
+XMLHttpRequest(XHR) 객체를 이용해서 전체 페이지가 아닌 필요한 데이터만 불러올 수 있습니다.
+
+💎 장점
+
+Jquery를 통해 쉽게 구현 가능
+Error, Success, Complete의 상태를 통해 실행 흐름 조절 가능
+
+💣 단점
+
+Jquery를 사용해야 간편하고 호환성이 보장됨
+Promise 기반이 아님
+
+<코드형식>
+var serverAddress = 'https://localhost:3000';
+
+// jQuery의 .get 메소드 사용
+$.ajax({
+    url: serverAddress,
+    type: 'GET',
+    success: function onData (data) {
+        console.log(data);
+    },
+    error: function onError (error) {
+        console.error(error);
+    }
+});
+
+============================
+<axios>
+axios는 Node.js와 브라우저를 위한 Promise API를 활용하는 HTTP 통신 라이브러리입니다.
+비동기로 HTTP 통신을 할 수 있으며 return을 promise 객체로 해주기 때문에 response 데이터를 다루기 쉽습니다.
+
+💎장점
+
+response timeout (fetch에는 없는 기능) 처리 방법이 존재
+Promise 기반으로 만들어졌기 때문에 데이터 다루기 편리
+브라우저 호환성이 뛰어남
+
+💣단점
+
+사용을 위해 모듈 설치 필요 (npm install axios)
+
+axios({
+  method: 'post',
+  url: 'https://localhost:3000/user',
+  data: {
+    userName: 'Cocoon',
+    userId: 'co1234'
+  }
+}).then((response) => console.log(response));
+
+==========================
+<fetch>
+⭐️fetch
+ES6부터 들어온 JavaScript 내장 라이브러리입니다.
+Promise 기반으로 만들어졌기 때문에 axios와 마찬가지로 데이터 다루기가 쉽고,
+내장 라이브러리라는 장점으로 상당히 편리합니다.
+
+💎장점
+
+자바스크립트의 내장 라이브러리 이므로 별도로 import 할 필요가 없음
+Promise 기반으로 만들어졌기 때문에 데이터 다루기 편리
+내장 라이브러리이기 때문에 업데이트에 따른 에러 방지가 가능
+
+💣단점
+
+지원하지 않는 브라우저가 존재 (IE11...)
+네트워크 에러 발생 시 response timeout이 없어 기다려야 함
+JSON으로 변환해주는 과정 필요
+상대적으로 axios에 비해 기능이 부족
+
+🚩결론
+간단한 통신의 경우엔 fetch를 사용하고 기능이 좀 더 필요하다면 axios를 사용하는 게 좋아 보입니다.
+
+<웹컴포넌트만들기>
+1)CutsomElement를 정의하는 방법(vanilaJS를 사용하여 자체적으로 쓰는 방법)
+2)(과제테스트)흔히 사용하는 컴포넌트 추상화 방식
+-state정의
+-setState()
+-render()함수정의
+
+
+==================
+<타입스크립트>
+Partial 유틸리티타입-특정타입의 부분집합을 만족시키는 타입을 정의할 수 있다
+기존의 것들로도 충분히 구현가능하지만 유틸리티타입을 쓰므로써 더 간단하게 구현할 수 있다

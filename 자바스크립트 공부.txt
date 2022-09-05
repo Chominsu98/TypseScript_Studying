@@ -1,0 +1,252 @@
+<호이스팅>
+스코프 내부 어디서든 변수선언은 최상위에 선언된 것처럼 행동
+var,const,let 다 호이스팅이 가능은 하되
+const,let은 Temoral Dead zone에 영향을 받아 할당하기 전에는 사용할 수 가 없다
+
+temporal Dead zone은 선언문 이전까지의 일시적 사각지대를 의미
+
+let/const 변수의 경우 var 변수와 다르게 변수의 선언 단계와 초기화 단계 사이에 일시적 사각 지대(TDZ)가 존재하고, TDZ에서 관리 중일 때(let 변수의 선언 또는 const 변수의 선언 및 할당 코드가 나오기 전)에 사용하려 한다면 ReferenceError를 발생 시킴
+
+var은 애초에선언과동시에 undefined로 초기화되지만
+let/const는 애초에 undefined도안되기에 reference에러 발생
+============================
+
+var은 함수스코프
+let,const는 블록 스코프-if문 함수 반복문 try/catch
+
+var의 변수선언
+1.선언 및 초기화단계(동시에 이루어짐)
+2.할당
+
+let의 변수선언
+1.선언
+(TDZ구간)
+2.초기화
+3.할당
+
+const의 변수선언
+1.선언+초기화+할당
+=================================
+<생성자 함수>
+사실 클래스가 도입되고 나서 큰의미가 없는것 같긴하지만
+typescript나 이런데에서 컴파일을 돌리면 최종적으로 생성자함수 형태로
+구현 된 거를 확인할 수 있다.
+
+function User(name,age){
+	this.name=name;
+	this.age=age;
+}
+
+let user1=new User(민수,25);
+(원리)
+new User로 선언을 하면
+1)this라는 빈객체{}를 선언한다
+2)this에 프로퍼티들을 추가한다
+3)그리고 this를 return한다
+
+<computed property>
+객체에서 키 값 같은 것을 변수로 주어질때
+let a={
+	[some]:"HI"
+}
+
+이런식으로 하면 some이라는 변수에 해당하는 값을 키로 넣어줌
+
+<객체 메소드>
+Object.assign({},복사할려는 객체):객체 복사하기->앞쪽 인자로 병합해줌
+이거 안쓰면 참조값만 갖고있는 것이되서 한쪽 바뀌면 다 바뀜
+
+Object.keys(객체):키값
+
+Object.values(객체):밸류값
+
+Object.entries(객체):키,밸류동시에
+
+
+<Symbol>
+객체의 키값을 고유하게 써서 다른 것과의 충돌을 막기 위해 사용됨
+
+const obj={}
+
+const sym1=Symbol("foo");
+cons sym2=Symbol("foo");
+
+obj[sym1]="a";
+obj[sym2]="b"
+
+위와 같이 키 값이 같아도 유일한 존재로 만들어줘 키 값의 충돌이
+일어나지 않음
+
+<수학>
+toString()메소드에서 괄호안에 인자에 2를 넣으면 2진법 변화으로
+문자열 바꿔줌
+진법을 넣어주자 괄호안에
+
+<나머지매개변수>
+자바스크립트에서는 함수에 들어오는 인자에 대하여 
+전체를 다 받을 때 ...numbers와 같이 가져올 수 있다.
+
+ex)
+function User(name,age,...skills){
+	this.name=name;
+	this.age=age;
+	this.skills=skills;
+
+}
+
+const user1=new User("민수",25,드럼,코딩,등등)
+나머지 매개변수는 항상 마지막에 있어야한다.
+왜냐면 남은것들을 다가져와야하 하므로
+
+<클로져>
+클로저는 일반적으로 어떤 함수가 자신의 내부가 아닌 외부에서 선언된 변수에 접근하는 것을 뜻합니다
+
+딱히 엄청난 개념은 아니지만 대체로 우리가 흔히 모르게도 썼을테지만
+자바스크립트는 함수를 변수에 할당시키는 방식이 많아서 유연성 때문에 이런말이 자주 나온다고 보면 된다
+
+<call,bind,apply>
+call 메서드는 모든함수에서 사용할 수 있으며,this에 대한 특정값을 지정해줄 수 있다,
+ex)
+cosnt mike={
+	name:"Tom";
+}
+function showThisname(){
+	console.log(this.name);
+}
+showThisname()//이 자체로 호출시 this가 가리키는 것은 window전역객체라서 window.name은 없기에 아무것도 출력 안됨
+
+showThisName.call(mike);//이렇게 this에 대한 객체를 지정해주므로써
+showThisname의 this는 mike가 된다
+따라서 Tom이 출력이 된다
+
+<프로토타입>
+
+prototype은 내가 가지고 있는 부모의 유전자라고 생각하면 쉬움
+자신을 만드는데 사용되는 원형의 객체
+
+함수:prototype속성
+객체:__proto__(자신의 원형객체에 참조할수 있도록 해주는 숨겨진링크)
+
+함수는 함수멤버로 프로토타입 속성이 있는데 이것은 
+해당함수의 저기 위에 원형이되는 프로토타입인 객체를 참조하게 되고
+
+이 프로토타입 객체에서 constructor()는 방금 이 함수를 참조하고 있는 형태
+
+서로 크로스되어있음
+
+
+
+
+<자바스크립트>
+자바스크립트에서의 기본자료형을 제외하고는 다 객체로받아들인다
+함수!!!!객체이다!!!
+이게 바로 자바스크립트가 다른 프로그래밍언어와 다른점
+-프로토타입기반 동적 프로토타입 기반 객체 지향언어
+
+-자바스크립트는 싱글스레드 기반 비동기 처리를 함
+
+<웹브라우저 동작원리>
+
+변수담아주는 메모리 힙(memory heap)
+코드들에서 하나씩 해야할 일들을 담아주는 call stack
+
+그리고 setTimeOut,Ajax같은 비동기적인 처리를 해주는 것들을 Wep API라고 부르는데에서 처리함 
+이것들은 바로 call stack에서 처리하지 않고 wep ApI로 넘김
+일종의 대기실 느낌
+
+그리고 setTimeout의 시간이 끝나면 taskQueue로 이동을 시키고 
+call stack이 비어있다면 순서대로 call stack으로 보내서 실행시키는 원리
+
+-단일스레드라는 말은 결국 call stack이 하나라는 것
+
+JS엔진 자체는:단일 스레드
+구동되는환경(브라우저,node.js):여러 스레드를 사용
+
+이 둘간의 환경을 상호작용하게 해주는게 Event loop이다
+Event loop가 call stack이 비면 task를 가져다 준다
+
+
+
+<DOM>
+각 브라우저는 html을 해석할수 있는 랜더링 엔진이 있는데
+한줄한줄위에서 해석을 하다가 완료되면 이거를 객체화시켜서
+자바스크립트가 접근하고 제어할 수 있게되는데
+이때 이 객체를 DOM(문서객체모델)이라고 부른다
+(웹문서를 객체화한것)-트리구조를 갖고있다
+최상위루트노드는 document이다
+
+<BOM>
+브라우저 자체를 제어할수있게 만든 모델을 브라우저객체모델이라고 부름-브라우저를 스크립트 언어로 제어할 수 있도록
+ex)
+window객체-모든 객체가 소속된 객체
+document객체
+history()객체:접근했던 주소와 관련된 객체
+location()객체:주소와 관련된객체 window와 document둘다에 포함됨
+screen객체-사용자 디스플레이에 대한 정보를 담는 객체
+navigator객체-사용자가 사용하는 브라우저에 대한 객체
+ex)geolocation(위치정보)
+
+<window.onload>
+모든 html태그를 다 파싱 및 외부콘텐츠가 로드 된후 실행되는 이벤트이다
+window.onload(function(){
+
+})
+
+<DOMContentLoaded>
+이건 외부콘텐츠에서 다 가져와줄때까지 기다려주는게 아니라 dom이 생성되고 나서 실행된다
+따라서 상대적으로 이게 window.onload보다 먼저 실행된다
+document.addEventListner("DOMContentLoaded",function(){
+
+})
+
+<script defer 속성>
+html파싱을 하면서 비동기적으로 scripte 태그를 가져오기에 효율적으로
+동시에 하게된다-실행은 파싱이 종료된후에 
+<script src="" defer>
+
+<script async 속성>
+html파싱을 하면서 비동기적으로 script 태그를 비동기적으로 가져오되
+실행이 파싱보다 먼저 가능한 스크립트 애들에 대해서는 진행될 수 있다는 점이 다르다
+
+<this>
+this는 호출한 객체이다
+하지만 호출한 객체가 없을경우 기본값으로 window객체이다
+
+하지만 화살표함수를 쓰게되면 호출하는 외부스코프에서 this를 그대로
+물려받아서 사용하였다
+
+<익명함수를 썼을때>
+let person={
+	age:20
+	hello:function(){
+		setTimeout(function(){
+			console.log(this)//이렇게 하면 애는 자체적으로 호출되는 것이 콜백으로 인한것으로 window객체가 나옴
+		},1000)
+	}
+}
+
+<화살표함수를 썼을때>
+let person={
+	age:20,
+	hello:function(){
+		setTimeout(()=>{
+		console.log(this);//이때에는 외부스코프로부터 받기에person이 나온다
+	})
+	}
+}
+
+<strict mode를 사용할 때>
+사용하지않을때에는 기본적으로 window객체로 this가 나오지만
+strict mode일 경우에는 undefined로 나올 것이다
+
+<화살표함수를 쓰지 말아야 할경우>
+let person={
+	age:20,
+	printThis:()=>{
+		console.log(this)//이렇게하면 이 자체 printThis를 감싸고 있는 외부스코프는 전역스코프로서 window가 나온다 조심
+따라서 객체내부에서 함수선언시에는 익명함수로 하는걸 추천
+	}
+}
+
+이벤트리스너에서도 이벤트에 대한 콜백을 꼭 익명함수로 써줘야지
+아니면 this는 window를 가르킴
