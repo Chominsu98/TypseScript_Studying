@@ -1,1 +1,1 @@
-![header](https://capsule-render.vercel.app/api?type=waving&color=ff9800&height=300&section=header&text=TypeScript_Studying&fontSize=90&animation=fadeIn&fontAlignY=38&desc=타입스크립트공부&descAlignY=51&fontColor=ffffff)
+![header](https://capsule-render.vercel.app/api?type=waving&color=ff9800&height=300&section=header&text=TypeScriptStudying&fontSize=70&animation=fadeIn&fontAlignY=38&desc=타입스크립트공부&descAlignY=60&fontColor=ffffff)
