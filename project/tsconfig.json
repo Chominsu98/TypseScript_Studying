@@ -3,7 +3,9 @@
         "allowJs": true,
         "target": "ES5",
         "outDir": "./built",
-        "moduleResolution": "Node"
+        "moduleResolution": "Node",
+        "lib": ["ES2015","DOM","DOM.Iterable"],
+        "noImplicitAny": true
     },
     "include": ["./src/**/*"]
 }
@@ -12,5 +14,6 @@
 // target은 원하는 자바스크립트 수준으로 컴파일해달라는것
 // outdir은 최종결과물은 built 폴더에 만들어라
 // moduleResolution은 Promise객체 관련설정
+// lib는 ES2015릏 넣으므로써 asynce 같은 것이 es5에 없기에 생기는 오류를 잡아줌
 
 // include는 해당 폴더에 있는 걸를 컴파일 해달라
