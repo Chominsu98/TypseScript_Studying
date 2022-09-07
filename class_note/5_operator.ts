@@ -40,11 +40,12 @@ asksomeone({name:"민수",skill:"coding"});
 asksomeone({name:"두열",age:25});
 //이와 같이 타입에 맞는 거를 쉽게 넣어줄 수 있다
 
-asksomeone_({name:"다빈",skill:"desgin",age:25});
-//이와 같이 인터섹션을 사용한 함수에서는 결국에는 Developer_와 _Person_을 둘다 가져야하는 새로운
-//자료형이 생기는셈이다
 
 function asksomeone_(someone: Developer_ &_Person_){
     someone.skill
 }
 //이와같이 인터섹션& 연산자를 사용하면 두 인터페이스에 있는 모든걸 접근할 수 있다
+
+asksomeone_({name:"다빈",skill:"desgin",age:25});
+//이와 같이 인터섹션을 사용한 함수에서는 결국에는 Developer_와 _Person_을 둘다 가져야하는 새로운
+//자료형이 생기는셈이다

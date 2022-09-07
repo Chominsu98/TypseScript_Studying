@@ -29,3 +29,4 @@ let person:{name:string,age:number}={
 
 //ts 진위
 let show:boolean=true;
+console.log("hihih")

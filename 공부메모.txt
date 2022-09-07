@@ -282,3 +282,31 @@ JSON으로 변환해주는 과정 필요
 <타입스크립트>
 Partial 유틸리티타입-특정타입의 부분집합을 만족시키는 타입을 정의할 수 있다
 기존의 것들로도 충분히 구현가능하지만 유틸리티타입을 쓰므로써 더 간단하게 구현할 수 있다
+
+<맵드타입>
+대표적으로 Partial 구현에서도 쓰인 방법
+type Heroes="Hulk"|"IronMan"|"Thor";
+type HeroAges={
+	[K in Heroes]:number
+}
+
+const ages={
+	"Hulk":12,
+	"IronMan":13,
+	"Thor":14
+}
+
+반복문처럼 순회를 돌면서 작동해준다(마치 map()를 돌린효과)
+map()는
+var arr=[1,2,3];
+let result=arr.map(function(item){
+	return item
+})
+새로운 배열을 반환하는 형태의 map()
+
+
+<자바스크립트에 타입스크립트 적용시>
+1.처음에는 기능변화를 만들기보다는 타입을 먹이는것부터 적용
+2.strict하게 아닌 any처럼 오류가 안나게 적용하고 점진적으로 적용
+3.@ts-check를 통해서 미리 타입스크립트 적용전에 jsdoc활용하여 적용
+4.꼭 타입스크립트를 쓰기에는 너무 어려워지는 경우에는 jsdoc을 활용해보는것도 좋은 아이디어

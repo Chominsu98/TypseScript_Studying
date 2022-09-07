@@ -37,7 +37,7 @@ interface StringArray{
 }
 
 var arr_: StringArray=['a','b','c'];
-arr[0]=10
+arr_[0]=10
 
 //딕셔너리 패턴
 interface StringRegexDictionary{

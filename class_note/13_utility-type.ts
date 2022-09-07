@@ -49,3 +49,35 @@ type UpdateProduct=Partial<Product>;
 function UpdateProductItem(shoppingItem:UpdateProduct){
 
 }
+
+//4.유틸리티 타입 구현해보기-Partial
+interface UserProfile{
+    username:string;
+    email:string;
+    profilePhotoUrl:string;
+}
+
+//이와같이 위에것을 재활용해서 얼추 Partial을 구현해보는중
+type UserProfileUpdate={
+    username?:UserProfile["username"];
+    email?:UserProfile["email"];
+    profilePhotoUrl?:UserProfile["profilePhotoUrl"]
+}
+
+//하지만 위에 것을 조금 더 줄여보자면
+type UserProfileUpdate_short={
+    [p in 'username'|"email"|"profilePhotoUrl"]?:UserProfile[p]
+}
+//이와 같이 줄일 수 있게되는데 저기에서 각 키값은 세개에 대하여 유니온한 연산자에 대하여 
+//반복문을 돌면서 하나씩 생기는 원리
+//맵드 타입이라고 부르는 테크닉임
+
+//하지만 각 키값들에 대하여 또 줄이게 되면
+type UserProfileUpdate_short_short={
+    [p in keyof UserProfile]?:UserProfile[p]
+}
+
+//최종 partial의 구현은 저 UserProfile부분을 제네릭으로 변환
+type subset<T>={
+    [p in keyof T]?:T[p]
+}
