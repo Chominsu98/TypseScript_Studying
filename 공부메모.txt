@@ -36,7 +36,17 @@ $()이게 기본바탕임 Jquery는
 페이지단계가 3단계depth이면 사용자경험 측면에서 넣어주면 좋다
 Home>Blog>Single Post 이런방식
 
-
+<package-lock.json>
+을 사용하는 이유는 원래 우리 흔히 배포시 node_modules를 제외한
+package.json만을 배포해서 나중에 해당 json에 의존하는 모든 모듈들을
+그에 맞춰서 다운받아주지만 이때 package-lock.json은 내가 개발하고 있던 그 순간의 모든 정보를 그대로 저장해두게 된다!
+하지만 package.json에서는 해당 모듈에 대해 버젼의 범위를 적어주기에
+그 이후에 예를 들어 해당의존성이 버젼이 업데이트가 되면 제일 최신 버젼을 가져다 줄 것이다 
+하지만 버젼의 차이로 생기는 문제도 종종 있기 때문에
+이 때 package-lock.json을 통하여 파일이 작성된 시점의 의존성트리가
+똑같이 생기게 해준다
+따라서 배포시 package.json과 package-lock.json을 같이 주는게 좋다
+https://hyunjun19.github.io/2018/03/23/package-lock-why-need/
 ==================================
 eslint나 tslint 플러그인을 설치를안해주면 코드상에 빨간줄을 쳐주는게 없음
 
